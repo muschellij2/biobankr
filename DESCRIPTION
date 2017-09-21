@@ -8,6 +8,10 @@ Authors@R: c(person(given = "John", family = "Muschelli",
         )
 Maintainer: John Muschelli <muschellij2@gmail.com>
 License: GPL-3
+Imports: 
+    readr,
+    broom,
+    dplyr
 Suggests: 
     knitr,
     rmarkdown,
@@ -18,3 +22,4 @@ LazyData: true
 ByteCompile: true
 VignetteBuilder: knitr
 BugReports: https://github.com/muschellij2/biobankr/issues
+RoxygenNote: 6.0.1.9000
