@@ -1,11 +1,12 @@
+Type: Package
 Package: biobankr
 Version: 0.1.0
 Title: UK Biobank Acceration Analysis
 Description: Tools for analysis and ploting data from the UK Biobank, specifically accelerometer data.
-Authors@R: structure(list(structure(list(given = "John", family = "Muschelli", 
-        role = c("aut", "cre"), email = "muschellij2@gmail.com", 
-        comment = NULL), .Names = c("given", "family", "role", "email", 
-    "comment"))), class = "person")
+Authors@R: c(person(given = "John", family = "Muschelli", 
+        role = c("aut", "cre"), email = "muschellij2@gmail.com")
+        )
+Maintainer: John Muschelli <muschellij2@gmail.com>
 License: GPL-3
 Suggests: 
     knitr,
@@ -15,8 +16,5 @@ Suggests:
 Encoding: UTF-8
 LazyData: true
 ByteCompile: true
-Type: Package
-Maintainer: John Muschelli <muschellij2@gmail.com>
 VignetteBuilder: knitr
-Url: https://github.com/muschellij2/biobankr
 BugReports: https://github.com/muschellij2/biobankr/issues
