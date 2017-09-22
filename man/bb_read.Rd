@@ -15,3 +15,7 @@ A \code{tibble}
 \description{
 Read Biobank Acceleration File
 }
+\examples{
+file = system.file("test2.csv", package = "biobankr")
+  df = bb_read(file)
+}

@@ -1,6 +1,6 @@
 Type: Package
 Package: biobankr
-Version: 0.1.0
+Version: 0.1.1
 Title: UK Biobank Acceration Analysis
 Description: Tools for analysis and ploting data from the UK Biobank, specifically accelerometer data.
 Authors@R: c(person(given = "John", family = "Muschelli", 
@@ -11,7 +11,8 @@ License: GPL-3
 Imports: 
     readr,
     broom,
-    dplyr
+    dplyr,
+    lubridate
 Suggests: 
     knitr,
     rmarkdown,
