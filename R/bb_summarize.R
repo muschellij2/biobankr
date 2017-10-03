@@ -16,17 +16,17 @@
 #' df = bb_read(file)
 #' collapsed = bb_summarize(df, unit = "10 seconds")
 #' collapsed = bb_summarize(df, unit = "10 seconds", summarize_func = "median")
-#' collapsed = bb_summarize(df, unit = "10 seconds",
+#' collapsed = bb_summarize(df, unit = "15 seconds",
 #' summarize_func = "quantile", probs = 0.25)
-#' @importFrom dplyr mutate group_by "%>%" summarize summarise ungroup
+#' @importFrom dplyr mutate group_by "%>%" summarize summarise ungroup n
 #' @importFrom lubridate floor_date
 bb_summarize = function(
   df,
   unit = "1 minute",
   summarize_func = "mean",
   ...) {
-  acceleration = NULL
-  rm(list = "acceleration")
+  imputed = acceleration = NULL
+  rm(list = c("acceleration", "imputed"))
 
   func = function(x, ...) {
     do.call(summarize_func, list(x, ...))
@@ -34,7 +34,9 @@ bb_summarize = function(
   df = df %>%
     mutate(date = floor_date(date, unit = unit)) %>%
     group_by(date) %>%
-    summarize(acceleration = func(acceleration, ...))
+    summarize(acceleration = func(acceleration, ...),
+              imputed = sum(imputed),
+              n = n())
   df = ungroup(df)
   attr(df, "summarize_func") = summarize_func
   attr(df, "time_unit") = unit
