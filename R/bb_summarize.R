@@ -4,7 +4,8 @@
 #' @param df A \code{data.frame} or \code{tbl} from \code{\link{bb_read}}
 #' @param unit unit of summarization, passed to
 #' \code{\link[lubridate]{floor_date}}
-#' @param summarize_func Function to use for summarization
+#' @param summarize_func Function to use for summarization,
+#' passed to \code{\link{summarize}}
 #' @param ... Additional arguments to pass to \code{summarize_func}
 #'
 #' @return A summarized \code{tbl}
@@ -37,5 +38,17 @@ bb_summarize = function(
   df = ungroup(df)
   attr(df, "summarize_func") = summarize_func
   attr(df, "time_unit") = unit
+  return(df)
+}
+
+#' @rdname bb_summarize
+#' @export
+bb_summarise = bb_summarize
+
+
+#' @rdname bb_summarize
+#' @export
+bb_summarize_minute = function(..., unit = "1 minute") {
+  df = bb_summarize(..., unit = unit)
   return(df)
 }

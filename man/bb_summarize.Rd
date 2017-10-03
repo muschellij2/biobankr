@@ -2,9 +2,15 @@
 % Please edit documentation in R/bb_summarize.R
 \name{bb_summarize}
 \alias{bb_summarize}
+\alias{bb_summarise}
+\alias{bb_summarize_minute}
 \title{Summarize Biobank Acceleration File}
 \usage{
 bb_summarize(df, unit = "1 minute", summarize_func = "mean", ...)
+
+bb_summarise(df, unit = "1 minute", summarize_func = "mean", ...)
+
+bb_summarize_minute(..., unit = "1 minute")
 }
 \arguments{
 \item{df}{A \code{data.frame} or \code{tbl} from \code{\link{bb_read}}}
@@ -12,7 +18,8 @@ bb_summarize(df, unit = "1 minute", summarize_func = "mean", ...)
 \item{unit}{unit of summarization, passed to
 \code{\link[lubridate]{floor_date}}}
 
-\item{summarize_func}{Function to use for summarization}
+\item{summarize_func}{Function to use for summarization,
+passed to \code{\link{summarize}}}
 
 \item{...}{Additional arguments to pass to \code{summarize_func}}
 }
