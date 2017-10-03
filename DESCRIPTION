@@ -1,6 +1,6 @@
 Type: Package
 Package: biobankr
-Version: 0.2.0
+Version: 0.3.0
 Title: UK Biobank Accelerometer Analysis
 Description: Tools for analysis and ploting data from the UK Biobank, 
     specifically accelerometer data.
@@ -11,7 +11,8 @@ Maintainer: John Muschelli <muschellij2@gmail.com>
 License: GPL-3
 Imports: 
     readr,
-    lubridate
+    lubridate,
+    dplyr
 Suggests: 
     knitr,
     rmarkdown,
