@@ -37,7 +37,9 @@ bb_1440 = function(
   if (summarize_over_day) {
     df = df %>%
       ungroup %>%
-      summarize(acceleration = func(acceleration, na.rm = na.rm))
+      group_by(minute) %>%
+      summarize(acceleration = func(acceleration, na.rm = na.rm)) %>%
+      ungroup
   }
   df = df %>%
     spread(key = minute, value = acceleration)
