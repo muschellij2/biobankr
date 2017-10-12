@@ -9,19 +9,10 @@ bb_1440(df, ...)
 \arguments{
 \item{df}{A \code{data.frame} or \code{tbl} from \code{\link{bb_read}}}
 
-\item{...}{Additional arguments to pass to \code{summarize_func}}
-
-\item{unit}{unit of summarization, passed to
-\code{\link[lubridate]{floor_date}}}
-
-\item{summarize_func}{Function to use for summarization,
-passed to \code{\link{summarize}}}
-
-\item{keep_imputed}{Should the imputed values be kept in this data set
-before summarization}
+\item{...}{Additional arguments to pass to \code{\link{bb_summarize}}}
 }
 \value{
-A summarized \code{tbl}
+A table of the day and 1440 columns
 }
 \description{
 Summarize Biobank Acceleration File
