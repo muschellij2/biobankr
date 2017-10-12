@@ -9,7 +9,6 @@
 #' @return A table of the day (if \code{summarize_over_day = FALSE}) and 1440 columns
 #' @export
 #'
-#' @examples
 #' @importFrom tidyr spread
 #' @importFrom lubridate floor_date hour minute
 #' @importFrom dplyr select
@@ -31,7 +30,7 @@ bb_1440 = function(
       date = lubridate::floor_date(date, unit = "day"))
 
   func = function(x, na.rm = TRUE) {
-    do.call(summarize_func, list(x, na.rm = na.rm))
+    do.call(summarize_day_func, list(x, na.rm = na.rm))
   }
 
   if (summarize_over_day) {
