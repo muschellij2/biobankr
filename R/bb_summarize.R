@@ -6,6 +6,8 @@
 #' \code{\link[lubridate]{floor_date}}
 #' @param summarize_func Function to use for summarization,
 #' passed to \code{\link{summarize}}
+#' @param keep_imputed Should the imputed values be kept in this data set
+#' before summarization
 #' @param ... Additional arguments to pass to \code{summarize_func}
 #'
 #' @return A summarized \code{tbl}
@@ -24,12 +26,16 @@ bb_summarize = function(
   df,
   unit = "1 minute",
   summarize_func = "mean",
+  keep_imputed = TRUE,
   ...) {
   imputed = acceleration = NULL
   rm(list = c("acceleration", "imputed"))
 
   func = function(x, ...) {
     do.call(summarize_func, list(x, ...))
+  }
+  if (!keep_imputed) {
+    df = df %>% filter(imputed == 0)
   }
   df = df %>%
     mutate(date = floor_date(date, unit = unit)) %>%

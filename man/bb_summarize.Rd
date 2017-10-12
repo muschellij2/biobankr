@@ -6,9 +6,11 @@
 \alias{bb_summarize_minute}
 \title{Summarize Biobank Acceleration File}
 \usage{
-bb_summarize(df, unit = "1 minute", summarize_func = "mean", ...)
+bb_summarize(df, unit = "1 minute", summarize_func = "mean",
+  keep_imputed = TRUE, ...)
 
-bb_summarise(df, unit = "1 minute", summarize_func = "mean", ...)
+bb_summarise(df, unit = "1 minute", summarize_func = "mean",
+  keep_imputed = TRUE, ...)
 
 bb_summarize_minute(..., unit = "1 minute")
 }
@@ -20,6 +22,9 @@ bb_summarize_minute(..., unit = "1 minute")
 
 \item{summarize_func}{Function to use for summarization,
 passed to \code{\link{summarize}}}
+
+\item{keep_imputed}{Should the imputed values be kept in this data set
+before summarization}
 
 \item{...}{Additional arguments to pass to \code{summarize_func}}
 }
@@ -34,6 +39,6 @@ file = system.file("test2.csv", package = "biobankr")
 df = bb_read(file)
 collapsed = bb_summarize(df, unit = "10 seconds")
 collapsed = bb_summarize(df, unit = "10 seconds", summarize_func = "median")
-collapsed = bb_summarize(df, unit = "10 seconds",
+collapsed = bb_summarize(df, unit = "15 seconds",
 summarize_func = "quantile", probs = 0.25)
 }
