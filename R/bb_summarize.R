@@ -21,6 +21,7 @@
 #' collapsed = bb_summarize(df, unit = "15 seconds",
 #' summarize_func = "quantile", probs = 0.25)
 #' @importFrom dplyr mutate group_by "%>%" summarize summarise ungroup n
+#' @importFrom dplyr filter
 #' @importFrom lubridate floor_date
 bb_summarize = function(
   df,
@@ -35,7 +36,7 @@ bb_summarize = function(
     do.call(summarize_func, list(x, ...))
   }
   if (!keep_imputed) {
-    df = df %>% filter(imputed == 0)
+    df = df %>% dplyr::filter(imputed == 0)
   }
   df = df %>%
     mutate(date = floor_date(date, unit = unit)) %>%
