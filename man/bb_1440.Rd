@@ -4,11 +4,15 @@
 \alias{bb_1440}
 \title{Summarize Biobank Acceleration File into 1440 format}
 \usage{
-bb_1440(df, summarize_over_day = FALSE, summarize_func = "mean",
+bb_1440(df, summarize_over_day = FALSE, summarize_day_func = "mean",
   na.rm = TRUE, ...)
 }
 \arguments{
 \item{df}{A \code{data.frame} or \code{tbl} from \code{\link{bb_read}}}
+
+\item{summarize_over_day}{Should the data be summarized over days?}
+
+\item{summarize_day_func}{function to summarize days over}
 
 \item{...}{Additional arguments to pass to \code{\link{bb_summarize}}}
 }

@@ -2,6 +2,8 @@
 #' Summarize Biobank Acceleration File into 1440 format
 #'
 #' @param df A \code{data.frame} or \code{tbl} from \code{\link{bb_read}}
+#' @param summarize_day_func function to summarize days over
+#' @param summarize_over_day Should the data be summarized over days?
 #' @param ... Additional arguments to pass to \code{\link{bb_summarize}}
 #'
 #' @return A table of the day (if \code{summarize_over_day = FALSE}) and 1440 columns
@@ -14,7 +16,7 @@
 bb_1440 = function(
   df,
   summarize_over_day = FALSE,
-  summarize_func = "mean",
+  summarize_day_func = "mean",
   na.rm = TRUE,
   ...) {
 
