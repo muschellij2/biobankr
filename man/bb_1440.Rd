@@ -2,9 +2,10 @@
 % Please edit documentation in R/bb_1440.R
 \name{bb_1440}
 \alias{bb_1440}
-\title{Summarize Biobank Acceleration File}
+\title{Summarize Biobank Acceleration File into 1440 format}
 \usage{
-bb_1440(df, ...)
+bb_1440(df, summarize_over_day = FALSE, summarize_func = "mean",
+  na.rm = TRUE, ...)
 }
 \arguments{
 \item{df}{A \code{data.frame} or \code{tbl} from \code{\link{bb_read}}}
@@ -12,8 +13,8 @@ bb_1440(df, ...)
 \item{...}{Additional arguments to pass to \code{\link{bb_summarize}}}
 }
 \value{
-A table of the day and 1440 columns
+A table of the day (if \code{summarize_over_day = FALSE}) and 1440 columns
 }
 \description{
-Summarize Biobank Acceleration File
+Summarize Biobank Acceleration File into 1440 format
 }

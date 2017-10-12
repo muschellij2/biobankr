@@ -1,10 +1,10 @@
 
-#' Summarize Biobank Acceleration File
+#' Summarize Biobank Acceleration File into 1440 format
 #'
 #' @param df A \code{data.frame} or \code{tbl} from \code{\link{bb_read}}
 #' @param ... Additional arguments to pass to \code{\link{bb_summarize}}
 #'
-#' @return A table of the day and 1440 columns
+#' @return A table of the day (if \code{summarize_over_day = FALSE}) and 1440 columns
 #' @export
 #'
 #' @examples
@@ -13,6 +13,9 @@
 #' @importFrom dplyr select
 bb_1440 = function(
   df,
+  summarize_over_day = FALSE,
+  summarize_func = "mean",
+  na.rm = TRUE,
   ...) {
 
   minute = acceleration = NULL
@@ -23,7 +26,19 @@ bb_1440 = function(
     dplyr::select(date, acceleration) %>%
     mutate(
       minute = lubridate::hour(date) * 60 + lubridate::minute(date),
-      date = lubridate::floor_date(date, unit = "day")) %>%
+      date = lubridate::floor_date(date, unit = "day"))
+
+  func = function(x, na.rm = TRUE) {
+    do.call(summarize_func, list(x, na.rm = na.rm))
+  }
+
+  if (summarize_over_day) {
+    df = df %>%
+      ungroup %>%
+      summarize(acceleration = func(acceleration, na.rm = na.rm))
+  }
+  df = df %>%
     spread(key = minute, value = acceleration)
+
   return(df)
 }
