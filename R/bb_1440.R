@@ -4,6 +4,7 @@
 #' @param df A \code{data.frame} or \code{tbl} from \code{\link{bb_read}}
 #' @param summarize_day_func function to summarize days over
 #' @param summarize_over_day Should the data be summarized over days?
+#' @param na.rm Should NAs be removed?
 #' @param ... Additional arguments to pass to \code{\link{bb_summarize}}
 #'
 #' @return A table of the day (if \code{summarize_over_day = FALSE}) and 1440 columns

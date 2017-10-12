@@ -14,6 +14,8 @@ bb_1440(df, summarize_over_day = FALSE, summarize_day_func = "mean",
 
 \item{summarize_day_func}{function to summarize days over}
 
+\item{na.rm}{Should NAs be removed?}
+
 \item{...}{Additional arguments to pass to \code{\link{bb_summarize}}}
 }
 \value{
