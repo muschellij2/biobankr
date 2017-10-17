@@ -12,7 +12,7 @@
 #' df = bb_read(file)
 #' day_stuff = date_day_min(df)
 #' date_stuff = date_day_min(df, from_baseline = FALSE)
-#' @importFrom lubridate floor_date hour minute
+#' @importFrom lubridate floor_date hour minute as.period
 date_day_min = function(
   df,
   from_baseline = TRUE) {
@@ -27,7 +27,7 @@ date_day_min = function(
     select(-date)
   if (from_baseline) {
     df = df %>%
-      mutate(day = as.integer(day - min(day)))
+      mutate(day = lubridate::as.period(day - min(day), unit = "day"))
   }
   return(df)
 }
