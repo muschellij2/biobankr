@@ -29,32 +29,34 @@ bb_summarize = function(
   summarize_func = "mean",
   keep_imputed = TRUE,
   ...) {
-  imputed = acceleration = not_na = NULL
-  rm(list = c("acceleration", "imputed", "not_na"))
+  non_imputed = imputed = acceleration = not_na = NULL
+  rm(list = c("acceleration", "imputed", "not_na", "non_imputed"))
 
   func = function(x, ...) {
     do.call(summarize_func, list(x, ...))
   }
   # if missing data has not been imputed
   df = df %>%
-    mutate(imputed = ifelse(
-      is.na(acceleration),
-      FALSE,
-      imputed))
-
-  if (!keep_imputed) {
-    # set imputed to NA if keep_imputed = FALSE
-    df = df %>%
-      filter(imputed == FALSE)
-  }
+    mutate(imputed = !is.na(acceleration) & imputed)
 
   df = df %>%
     mutate(date = floor_date(date, unit = unit),
-           not_na = !is.na(acceleration)) %>%
+           not_na = !is.na(acceleration),
+           imputed = imputed & not_na,
+           non_imputed = !imputed & not_na)
+  if (!keep_imputed) {
+    # set imputed to NA if keep_imputed = FALSE
+    df = df %>%
+      mutate(acceleration = ifelse(
+        imputed, NA, acceleration)
+      )
+  }
+
+  df = df %>%
     group_by(date) %>%
     summarize(acceleration = func(acceleration, ...),
-              imputed = sum(imputed == TRUE & not_na),
-              n = sum(not_na))
+              imputed = sum(imputed),
+              non_imputed = sum(non_imputed))
   # if (!keep_imputed) {
   #   df$imputed = NA
   # }
