@@ -98,7 +98,7 @@ bb_1440_count = function(
   }
   df = df %>%
     spread(key = minute, value = count)
-  df[ is.na(df)] = 0
+  # df[ is.na(df)] = 0
 
   return(df)
 }
