@@ -29,8 +29,8 @@ bb_summarize = function(
   summarize_func = "mean",
   keep_imputed = TRUE,
   ...) {
-  imputed = acceleration = NULL
-  rm(list = c("acceleration", "imputed"))
+  imputed = acceleration = not_na = NULL
+  rm(list = c("acceleration", "imputed", "not_na"))
 
   func = function(x, ...) {
     do.call(summarize_func, list(x, ...))
@@ -39,11 +39,12 @@ bb_summarize = function(
     df = df %>% dplyr::filter(imputed == 0)
   }
   df = df %>%
-    mutate(date = floor_date(date, unit = unit)) %>%
+    mutate(date = floor_date(date, unit = unit),
+           not_na = !is.na(acceleration)) %>%
     group_by(date) %>%
     summarize(acceleration = func(acceleration, ...),
-              imputed = sum(imputed),
-              n = n())
+              imputed = sum(imputed & not_na),
+              n = sum(not_na))
   df = ungroup(df)
   attr(df, "summarize_func") = summarize_func
   attr(df, "time_unit") = unit

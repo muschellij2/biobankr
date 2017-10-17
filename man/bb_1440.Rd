@@ -6,9 +6,9 @@
 \title{Summarize Biobank Acceleration File into 1440 format}
 \usage{
 bb_1440(df, summarize_over_day = FALSE, summarize_day_func = "mean",
-  na.rm = TRUE, ...)
+  na.rm = TRUE, keep_imputed = FALSE, ...)
 
-bb_1440_count(df, summarize_over_day = FALSE, ...)
+bb_1440_count(df, summarize_over_day = FALSE, keep_imputed = TRUE, ...)
 }
 \arguments{
 \item{df}{A \code{data.frame} or \code{tbl} from \code{\link{bb_read}}}
@@ -19,10 +19,14 @@ bb_1440_count(df, summarize_over_day = FALSE, ...)
 
 \item{na.rm}{Should NAs be removed?}
 
+\item{keep_imputed}{Should the imputed values be kept in this data set
+or counted before summarization}
+
 \item{...}{Additional arguments to pass to \code{\link{bb_summarize}}}
 }
 \value{
-A table of the day (if \code{summarize_over_day = FALSE}) and 1440 columns
+A table of the day (if \code{summarize_over_day = FALSE})
+and 1440 columns
 }
 \description{
 Summarize Biobank Acceleration File into 1440 format
