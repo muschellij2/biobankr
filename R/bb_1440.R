@@ -21,14 +21,16 @@ bb_1440 = function(
   summarize_over_day = FALSE,
   summarize_day_func = "mean",
   na.rm = TRUE,
-  keep_imputed = FALSE,
+  keep_imputed = TRUE,
   long = FALSE,
   ...) {
 
   minute = acceleration = NULL
   rm(list = c("acceleration", "minute"))
 
-  df = bb_summarize_minute(df, ...)
+  df = bb_summarize_minute(
+    df,
+    keep_imputed = keep_imputed, ...)
   df = df %>%
     dplyr::select(date, acceleration) %>%
     date_day_min
@@ -64,25 +66,30 @@ bb_1440_count = function(
   long = FALSE,
   ...) {
 
-  x = minute = imputed = n = NULL
-  rm(list = c("imputed", "minute", "n", "x"))
+  count = minute = imputed = n = NULL
+  rm(list = c("imputed", "minute", "n", "count"))
 
-  df = bb_summarize_minute(df, ...)
+  df = bb_summarize_minute(
+    df,
+    keep_imputed = TRUE,
+    ...)
   df = df %>%
     dplyr::select(date, imputed, n) %>%
     date_day_min
 
   if (keep_imputed) {
-    df$x = df$n
+    df$count = df$n
   } else {
-    df$x = df$imputed
+    df$count = df$imputed
   }
+  df = df %>%
+    select(-imputed, -n)
 
   if (summarize_over_day) {
     df = df %>%
       ungroup %>%
       group_by(minute) %>%
-      summarize(x = sum(x)) %>%
+      summarize(count = sum(count)) %>%
       ungroup
   }
 
@@ -90,7 +97,7 @@ bb_1440_count = function(
     return(df)
   }
   df = df %>%
-    spread(key = minute, value = x)
+    spread(key = minute, value = count)
   df[ is.na(df)] = 0
 
   return(df)

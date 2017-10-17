@@ -43,7 +43,7 @@ bb_summarize = function(
            not_na = !is.na(acceleration)) %>%
     group_by(date) %>%
     summarize(acceleration = func(acceleration, ...),
-              imputed = sum(imputed & not_na),
+              imputed = sum(imputed == 1 & not_na),
               n = sum(not_na))
   df = ungroup(df)
   attr(df, "summarize_func") = summarize_func
