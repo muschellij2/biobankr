@@ -56,7 +56,8 @@ bb_summarize = function(
 
   df = df %>%
     group_by(date) %>%
-    summarize(acceleration = func(acceleration, ...),
+    summarize(acceleration = func(acceleration,
+                                  na.rm = na.rm, ...),
               imputed = sum(imputed),
               non_imputed = sum(non_imputed))
   # if (!keep_imputed) {
