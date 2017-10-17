@@ -39,13 +39,13 @@ bb_summarize = function(
   df = df %>%
     mutate(imputed = ifelse(
       is.na(acceleration),
-      0,
+      FALSE,
       imputed))
 
   if (!keep_imputed) {
     # set imputed to NA if keep_imputed = FALSE
     df = df %>%
-      filter(imputed == 0)
+      filter(imputed == FALSE)
   }
 
   df = df %>%
@@ -53,7 +53,7 @@ bb_summarize = function(
            not_na = !is.na(acceleration)) %>%
     group_by(date) %>%
     summarize(acceleration = func(acceleration, ...),
-              imputed = sum(imputed > 0 & not_na),
+              imputed = sum(imputed == TRUE & not_na),
               n = sum(not_na))
   # if (!keep_imputed) {
   #   df$imputed = NA
