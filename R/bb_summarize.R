@@ -35,6 +35,7 @@ bb_summarize = function(
   func = function(x, ...) {
     do.call(summarize_func, list(x, ...))
   }
+  df$imputed = as.logical(df$imputed)
   # if missing data has not been imputed
   df = df %>%
     mutate(imputed = ifelse(
