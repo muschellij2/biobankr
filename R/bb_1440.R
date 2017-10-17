@@ -57,7 +57,7 @@ bb_1440_count = function(
   ...) {
 
   minute = imputed = not_imputed = NULL
-  rm(list = c("acceleration", "minute"))
+  rm(list = c("imputed", "minute", "not_imputed"))
 
   df = bb_summarize_minute(df, ...)
   df = df %>%
