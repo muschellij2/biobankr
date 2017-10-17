@@ -35,16 +35,29 @@ bb_summarize = function(
   func = function(x, ...) {
     do.call(summarize_func, list(x, ...))
   }
+  # if missing data has not been imputed
+  df = df %>%
+    mutate(imputed = ifelse(
+      is.na(acceleration),
+      0,
+      imputed))
+
   if (!keep_imputed) {
-    df = df %>% dplyr::filter(imputed == 0)
+    # set imputed to NA if keep_imputed = FALSE
+    df = df %>%
+      filter(imputed == 0)
   }
+
   df = df %>%
     mutate(date = floor_date(date, unit = unit),
            not_na = !is.na(acceleration)) %>%
     group_by(date) %>%
     summarize(acceleration = func(acceleration, ...),
-              imputed = sum(imputed == 1 & not_na),
+              imputed = sum(imputed > 0 & not_na),
               n = sum(not_na))
+  # if (!keep_imputed) {
+  #   df$imputed = NA
+  # }
   df = ungroup(df)
   attr(df, "summarize_func") = summarize_func
   attr(df, "time_unit") = unit
