@@ -53,7 +53,10 @@ bb_summarize = function(
         imputed, NA, acceleration)
       )
   }
-
+  # if (na.rm) {
+  #   df = df %>%
+  #     filter(!is.na(acceleration))
+  # }
   df = df %>%
     group_by(date) %>%
     summarize(acceleration = func(acceleration,
