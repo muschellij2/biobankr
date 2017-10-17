@@ -2,10 +2,13 @@
 % Please edit documentation in R/bb_1440.R
 \name{bb_1440}
 \alias{bb_1440}
+\alias{bb_1440_count}
 \title{Summarize Biobank Acceleration File into 1440 format}
 \usage{
 bb_1440(df, summarize_over_day = FALSE, summarize_day_func = "mean",
   na.rm = TRUE, ...)
+
+bb_1440_count(df, summarize_over_day = FALSE, ...)
 }
 \arguments{
 \item{df}{A \code{data.frame} or \code{tbl} from \code{\link{bb_read}}}
@@ -23,4 +26,8 @@ A table of the day (if \code{summarize_over_day = FALSE}) and 1440 columns
 }
 \description{
 Summarize Biobank Acceleration File into 1440 format
+}
+\note{
+\code{\link{bb_1440_count}} counts the number of non-imputed
+measures
 }

@@ -46,3 +46,31 @@ bb_1440 = function(
 
   return(df)
 }
+
+#' @export
+#' @rdname bb_1440
+#' @note \code{\link{bb_1440_count}} counts the number of non-imputed
+#' measures
+bb_1440_count = function(
+  df,
+  summarize_over_day = FALSE,
+  ...) {
+
+  minute = imputed = not_imputed = NULL
+  rm(list = c("acceleration", "minute"))
+
+  df = bb_summarize_minute(df, ...)
+  df = df %>%
+    dplyr::mutate(not_imputed = n - imputed) %>%
+    dplyr::select(date, not_imputed) %>%
+    mutate(
+      minute = lubridate::hour(date) * 60 + lubridate::minute(date),
+      date = lubridate::floor_date(date, unit = "day"))
+
+
+  df = df %>%
+    spread(key = minute, value = not_imputed)
+  df[ is.na(df)] = 0
+
+  return(df)
+}
