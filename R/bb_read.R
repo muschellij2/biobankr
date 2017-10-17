@@ -11,6 +11,8 @@
 #'   df = bb_read(file)
 bb_read = function(file) {
 
+  imputed = NULL
+  rm(list = "imputed");
   #############################
   # read in the data
   #############################
@@ -55,6 +57,8 @@ bb_read = function(file) {
   if (last_date != date_range[2]) {
     warning("Sequence of days/times does not match date range on header")
   }
+  df = df %>%
+    mutate(imputed = as.logical(imputed))
 
   return(df)
 }
