@@ -63,9 +63,10 @@ bb_summarize = function(
                                   na.rm = na.rm, ...),
               imputed = sum(imputed),
               non_imputed = sum(non_imputed))
-  # if (!keep_imputed) {
-  #   df$imputed = NA
-  # }
+  if (!keep_imputed) {
+    df = df %>%
+      filter(non_imputed > 0)
+  }
   df = ungroup(df)
   attr(df, "summarize_func") = summarize_func
   attr(df, "time_unit") = unit
