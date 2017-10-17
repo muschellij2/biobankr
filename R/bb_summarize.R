@@ -6,6 +6,7 @@
 #' \code{\link[lubridate]{floor_date}}
 #' @param summarize_func Function to use for summarization,
 #' passed to \code{\link{summarize}}
+#' @param na.rm Should NAs be removed?
 #' @param keep_imputed Should the imputed values be kept in this data set
 #' before summarization
 #' @param ... Additional arguments to pass to \code{summarize_func}
@@ -27,13 +28,14 @@ bb_summarize = function(
   df,
   unit = "1 minute",
   summarize_func = "mean",
+  na.rm = TRUE,
   keep_imputed = TRUE,
   ...) {
   non_imputed = imputed = acceleration = not_na = NULL
   rm(list = c("acceleration", "imputed", "not_na", "non_imputed"))
 
-  func = function(x, ...) {
-    do.call(summarize_func, list(x, ...))
+  func = function(x, na.rm = TRUE, ...) {
+    do.call(summarize_func, list(x, na.rm = na.rm, ...))
   }
   # if missing data has not been imputed
   df = df %>%
