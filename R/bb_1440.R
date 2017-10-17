@@ -7,6 +7,7 @@
 #' @param na.rm Should NAs be removed?
 #' @param keep_imputed Should the imputed values be kept in this data set
 #' or counted before summarization
+#' @param long Should the data be kept long?  If so, not in 1440 format.
 #' @param ... Additional arguments to pass to \code{\link{bb_summarize}}
 #'
 #' @return A table of the day (if \code{summarize_over_day = FALSE})
@@ -21,6 +22,7 @@ bb_1440 = function(
   summarize_day_func = "mean",
   na.rm = TRUE,
   keep_imputed = FALSE,
+  long = FALSE,
   ...) {
 
   minute = acceleration = NULL
@@ -42,6 +44,9 @@ bb_1440 = function(
       summarize(acceleration = func(acceleration, na.rm = na.rm)) %>%
       ungroup
   }
+  if (long) {
+    return(df)
+  }
   df = df %>%
     spread(key = minute, value = acceleration)
 
@@ -56,6 +61,7 @@ bb_1440_count = function(
   df,
   summarize_over_day = FALSE,
   keep_imputed = TRUE,
+  long = FALSE,
   ...) {
 
   x = minute = imputed = n = NULL
@@ -80,6 +86,9 @@ bb_1440_count = function(
       ungroup
   }
 
+  if (long) {
+    return(df)
+  }
   df = df %>%
     spread(key = minute, value = x)
   df[ is.na(df)] = 0

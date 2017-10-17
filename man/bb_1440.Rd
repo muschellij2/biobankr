@@ -6,9 +6,10 @@
 \title{Summarize Biobank Acceleration File into 1440 format}
 \usage{
 bb_1440(df, summarize_over_day = FALSE, summarize_day_func = "mean",
-  na.rm = TRUE, keep_imputed = FALSE, ...)
+  na.rm = TRUE, keep_imputed = FALSE, long = FALSE, ...)
 
-bb_1440_count(df, summarize_over_day = FALSE, keep_imputed = TRUE, ...)
+bb_1440_count(df, summarize_over_day = FALSE, keep_imputed = TRUE,
+  long = FALSE, ...)
 }
 \arguments{
 \item{df}{A \code{data.frame} or \code{tbl} from \code{\link{bb_read}}}
@@ -21,6 +22,8 @@ bb_1440_count(df, summarize_over_day = FALSE, keep_imputed = TRUE, ...)
 
 \item{keep_imputed}{Should the imputed values be kept in this data set
 or counted before summarization}
+
+\item{long}{Should the data be kept long?  If so, not in 1440 format.}
 
 \item{...}{Additional arguments to pass to \code{\link{bb_summarize}}}
 }
