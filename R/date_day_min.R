@@ -28,7 +28,7 @@ date_day_min = function(
   if (from_baseline) {
     df = df %>%
       mutate(day = lubridate::as.period(day - min(day), unit = "day")) %>%
-      mutate(day = as.integer(day))
+      mutate(day = as.numeric(day, "days"))
   }
   return(df)
 }
