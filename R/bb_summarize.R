@@ -31,8 +31,8 @@ bb_summarize = function(
   na.rm = TRUE,
   keep_imputed = TRUE,
   ...) {
-  imputed = acceleration = NULL
-  rm(list = c("acceleration", "imputed"))
+  not_missing = imputed = acceleration = NULL
+  rm(list = c("acceleration", "imputed", "not_missing"))
 
   func = function(x, na.rm = TRUE, ...) {
     do.call(summarize_func, list(x, na.rm = na.rm, ...))
@@ -50,11 +50,13 @@ bb_summarize = function(
   }
 
   df = df %>%
-    mutate(date = floor_date(date, unit = unit)) %>%
+    mutate(date = floor_date(date, unit = unit),
+           not_missing = !is.na(acceleration)) %>%
     group_by(date) %>%
-    summarize(acceleration = func(acceleration,
-                                  na.rm = na.rm, ...),
-              n = sum(!is.na(acceleration)))
+    summarize(n = sum(not_missing),
+              acceleration = func(acceleration,
+                                  na.rm = na.rm, ...)
+              )
   df = ungroup(df)
   attr(df, "summarize_func") = summarize_func
   attr(df, "time_unit") = unit
