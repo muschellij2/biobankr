@@ -22,7 +22,7 @@ date_day_min = function(
 
   df = df %>%
     mutate(
-      minute = lubridate::hour(date) * 60 + lubridate::minute(date),
+      minute = time_to_min(date),
       day = lubridate::floor_date(date, unit = "day")) %>%
     select(-date)
   if (from_baseline) {
