@@ -1,6 +1,9 @@
 #' Read Biobank Acceleration File
 #'
 #' @param file path to filename
+#' @param force_numeric Should the acceleration be
+#' set to numeric even if read in as character
+#' (odd but happens)
 #'
 #' @return A \code{tibble}
 #' @export
@@ -9,7 +12,8 @@
 #' @examples
 #' file = system.file("test2.csv", package = "biobankr")
 #'   df = bb_read(file)
-bb_read = function(file) {
+bb_read = function(file,
+                   force_numeric = TRUE) {
 
   imputed = NULL
   rm(list = "imputed");
@@ -44,6 +48,13 @@ bb_read = function(file) {
 
   # change first column to just acceleration
   colnames(df)[1] = "acceleration"
+
+  if (force_numeric) {
+    bad = is.na(as.numeric(df$acceleration)) &
+      !is.na(df$acceleration)
+    stopifnot(all(!bad))
+    df$acceleration = as.numeric(df$acceleration)
+  }
 
   # create date
   n_time_points = nrow(df)

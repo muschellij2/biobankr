@@ -4,10 +4,14 @@
 \alias{bb_read}
 \title{Read Biobank Acceleration File}
 \usage{
-bb_read(file)
+bb_read(file, force_numeric = TRUE)
 }
 \arguments{
 \item{file}{path to filename}
+
+\item{force_numeric}{Should the acceleration be
+set to numeric even if read in as character
+(odd but happens)}
 }
 \value{
 A \code{tibble}
