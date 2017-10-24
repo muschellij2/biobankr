@@ -25,15 +25,24 @@ date_day_min = function(
   #     minute = time_to_min(date),
   #     day = lubridate::floor_date(date, unit = "day")) %>%
   #   select(-date)
-  df$minute = time_to_min(df$date)
+
+  date_vec = df$date
+  df$date = NULL; gc()
+  date_vec = as.POSIXlt(date_vec)
+
+  df$minute = time_to_min(date_vec)
+  df$day = as.Date(date_vec)
+  rm(date_vec); gc()
+
+  # df$minute = time_to_min(df$date)
   # df$date = lubridate::floor_date(df$date, unit = "day")
-  df$date = floor_1day(df$date)
-  df = dplyr::rename(df, day = date)
+  # df$date = floor_1day(df$date)
+  # df = dplyr::rename(df, day = date)
 
   if (from_baseline) {
     # need mutate for grouping
     df = df %>%
-      mutate(day = as.numeric(day - min(day), unit = "days")
+      mutate(day = as.integer(day - min(day), unit = "days")
       )
   }
   return(df)
