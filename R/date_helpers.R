@@ -18,7 +18,7 @@
 #' @rdname time_helpers
 time_to_min = function(x) {
   x = as.POSIXlt(x, tz = lubridate::tz(x))
-  x = x$hour * 60 + x$minute
+  x = x$hour * 60 + x$min
   # x = lubridate::hour(x) * 60 + lubridate::minute(x)
   return(x)
 }
