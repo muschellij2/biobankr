@@ -47,4 +47,3 @@ date_day_min = function(
   }
   return(df)
 }
-

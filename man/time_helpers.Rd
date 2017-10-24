@@ -4,6 +4,7 @@
 \alias{time_to_min}
 \alias{min_to_time}
 \alias{floor_1day}
+\alias{yyyymmdd}
 \title{Time helper functions}
 \usage{
 time_to_min(x)
@@ -11,6 +12,8 @@ time_to_min(x)
 min_to_time(x, day = NULL)
 
 floor_1day(x)
+
+yyyymmdd(x)
 }
 \arguments{
 \item{x}{an object of class Date or numeric time.  Note,

@@ -57,3 +57,14 @@ floor_1day = function(x) {
   x = as.Date(x)
   return(x)
 }
+
+
+
+#' @export
+#' @rdname time_helpers
+yyyymmdd = function(x) {
+  # x is POSIXlt
+  x = (x$year + 1900)*10000 + (x$mon + 1) * 100 + (x$mday)
+  x = as.integer(x)
+  x
+}
