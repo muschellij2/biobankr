@@ -26,7 +26,8 @@ date_day_min = function(
   #     day = lubridate::floor_date(date, unit = "day")) %>%
   #   select(-date)
   df$minute = time_to_min(df$date)
-  df$date = lubridate::floor_date(df$date, unit = "day")
+  # df$date = lubridate::floor_date(df$date, unit = "day")
+  df$date = floor_1day(df$date)
   df = dplyr::rename(df, day = date)
 
   if (from_baseline) {
@@ -38,3 +39,12 @@ date_day_min = function(
   return(df)
 }
 
+
+floor_1day = function(x) {
+  x <- as.POSIXlt(x)
+  x$sec[] <- 0
+  x$min[] <- 0L
+  x$hour[] <- 0L
+  x$isdst[] <- -1L
+  return(x)
+}
