@@ -51,9 +51,9 @@ min_to_time  = function(x, day = NULL) {
 #' @rdname time_helpers
 floor_1day = function(x) {
   x <- as.POSIXlt(x)
-  x$sec[] <- 0
-  x$min[] <- 0L
-  x$hour[] <- 0L
-  x$isdst[] <- -1L
+  x$sec <- 0
+  x$min <- 0L
+  x$hour <- 0L
+  x = as.Date(x)
   return(x)
 }
