@@ -17,10 +17,12 @@
 #' @importFrom lubridate floor_date hour minute as.period ymd tz is.POSIXlt
 #' @rdname time_helpers
 time_to_min = function(x) {
-  if (!lubridate::is.POSIXlt(x)) {
-    x = as.POSIXlt(x, tz = lubridate::tz(x))
+  if (lubridate::is.POSIXlt(x)) {
+    x = x$hour * 60 + x$min
+  } else {
+    x = as.integer(format(x, "%H")) * 60 + as.integer(format(x, "%M"))
   }
-  x = x$hour * 60 + x$min
+  x = as.integer(x)
   # x = lubridate::hour(x) * 60 + lubridate::minute(x)
   return(x)
 }
