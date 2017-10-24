@@ -20,12 +20,17 @@ date_day_min = function(
   day = NULL
   rm(list = "day")
 
-  df = df %>%
-    mutate(
-      minute = time_to_min(date),
-      day = lubridate::floor_date(date, unit = "day")) %>%
-    select(-date)
+  # df = df %>%
+  #   mutate(
+  #     minute = time_to_min(date),
+  #     day = lubridate::floor_date(date, unit = "day")) %>%
+  #   select(-date)
+  df$minute = time_to_min(df$date)
+  df$date = lubridate::floor_date(df$date, unit = "day")
+  df = dplyr::rename(df, day = date)
+
   if (from_baseline) {
+    # need mutate for grouping
     df = df %>%
       mutate(day = as.numeric(day - min(day), unit = "days")
       )

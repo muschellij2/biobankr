@@ -14,10 +14,12 @@
 #' mins
 #' min_to_time(mins)
 #' min_to_time(mins, day = "2017-01-24")
-#' @importFrom lubridate floor_date hour minute as.period ymd
+#' @importFrom lubridate floor_date hour minute as.period ymd tz
 #' @rdname time_helpers
 time_to_min = function(x) {
-  x = lubridate::hour(x) * 60 + lubridate::minute(x)
+  x = as.POSIXlt(x, tz = lubridate::tz(x))
+  x = x$hour * 60 + x$minute
+  # x = lubridate::hour(x) * 60 + lubridate::minute(x)
   return(x)
 }
 
