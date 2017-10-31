@@ -2,12 +2,15 @@
 % Please edit documentation in R/aaa_date_helpers.R
 \name{time_to_min}
 \alias{time_to_min}
+\alias{min_to_hr_min}
 \alias{min_to_time}
 \alias{floor_1day}
 \alias{yyyymmdd}
 \title{Time helper functions}
 \usage{
 time_to_min(x)
+
+min_to_hr_min(x)
 
 min_to_time(x, day = NULL)
 

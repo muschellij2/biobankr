@@ -14,35 +14,51 @@
 #' mins
 #' min_to_time(mins)
 #' min_to_time(mins, day = "2017-01-24")
+#' min_to_hr_min(600)
 #' @importFrom lubridate floor_date hour minute as.period ymd tz is.POSIXlt
 #' @rdname time_helpers
 time_to_min = function(x) {
   if (lubridate::is.POSIXlt(x)) {
     x = x$hour * 60 + x$min
   } else {
-    x = as.integer(format(x, "%H")) * 60 + as.integer(format(x, "%M"))
+    x = as.integer(format(x, "%H")) * 60L + as.integer(format(x, "%M"))
   }
   x = as.integer(x)
-  # x = lubridate::hour(x) * 60 + lubridate::minute(x)
+  # x = lubridate::hour(x) * 60L + lubridate::minute(x)
   return(x)
 }
 
 #' @export
 #' @rdname time_helpers
+min_to_hr_min = function(x) {
+  if (is.integer(x)) {
+    func = as.integer
+    val = 60L
+  } else {
+    func = identity
+    val = 60
+  }
+  hr = func(floor(x / val))
+  x = x - func(hr * val)
+  cbind(hour = hr, min = x)
+}
+
+#' @export
+#' @rdname time_helpers
 min_to_time  = function(x, day = NULL) {
-  hr = floor(x / 60)
-  mins = x - hr * 60
-  str = sprintf("%02i:%02i", hr, mins)
+  x = min_to_hr_min(x)
+
+  x = sprintf("%02i:%02i", x[, "hour"], x[, "min"])
   fmt = "%H:%M"
   if (!is.null(day)) {
     day = lubridate::ymd(day)
-    str = sprintf("%s %s", day, str)
+    x = sprintf("%s %s", day, x)
     fmt = paste0("%Y-%m-%d", fmt)
   }
-  tm = as.POSIXct(
-    str,
+  x = as.POSIXct(
+    x,
     format = fmt)
-  return(tm)
+  return(x)
 }
 
 
@@ -64,7 +80,7 @@ floor_1day = function(x) {
 #' @rdname time_helpers
 yyyymmdd = function(x) {
   # x is POSIXlt
-  x = (x$year + 1900)*10000 + (x$mon + 1) * 100 + (x$mday)
+  x = (x$year + 1900L)*10000L + (x$mon + 1L) * 100L + (x$mday)
   x = as.integer(x)
   x
 }
