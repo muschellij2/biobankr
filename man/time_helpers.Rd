@@ -37,4 +37,5 @@ mins = time_to_min(tm)
 mins
 min_to_time(mins)
 min_to_time(mins, day = "2017-01-24")
+min_to_hr_min(600)
 }
