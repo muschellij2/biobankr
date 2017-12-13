@@ -3,6 +3,7 @@
 #'
 #' @param file filename of cwa file
 #' @param end End point for reading data.  Default is all the data
+#' @param convert_time Should times be converted to \code{POSIXct}?
 #' @param verbose print diagnostic messages
 #'
 #' @return A list with header information and a tbl
@@ -10,9 +11,18 @@
 #'
 #' @importFrom dplyr as_data_frame
 #' @importFrom GGIR g.cwaread
-read_cwa = function(file, end = Inf, verbose = TRUE) {
+read_cwa = function(file, end = Inf, verbose = TRUE, convert_time = TRUE) {
   res = GGIR::g.cwaread(
     fileName = file, start = 0, end = end, progressBar = verbose)
   res$data = dplyr::as_data_frame(res$data)
+  if (convert_time) {
+    res$data$time = as.POSIXct(res$data$time, origin = "1970-01-01")
+    time1 = res$data$time[1]
+    if (res$header$start != time1) {
+      msg = paste0("Header start date is not same time as data$time",
+                   " may want to use convert_time = FALSE to see oddity")
+      warning(msg)
+    }
+  }
   return(res)
 }
