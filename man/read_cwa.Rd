@@ -4,16 +4,16 @@
 \alias{read_cwa}
 \title{Read CWA from Axtivity}
 \usage{
-read_cwa(file, end = Inf, verbose = TRUE, convert_time = TRUE)
+read_cwa(file, end = Inf, convert_time = TRUE, verbose = TRUE)
 }
 \arguments{
 \item{file}{filename of cwa file}
 
 \item{end}{End point for reading data.  Default is all the data}
 
-\item{verbose}{print diagnostic messages}
-
 \item{convert_time}{Should times be converted to \code{POSIXct}?}
+
+\item{verbose}{print diagnostic messages}
 }
 \value{
 A list with header information and a tbl

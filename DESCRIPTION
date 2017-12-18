@@ -1,6 +1,6 @@
 Type: Package
 Package: biobankr
-Version: 0.6.0
+Version: 0.6.1
 Title: UK Biobank Accelerometer Analysis
 Description: Tools for analysis and ploting data from the UK Biobank, 
     specifically accelerometer data.
@@ -14,7 +14,7 @@ Imports:
     lubridate,
     dplyr,
     tidyr,
-    GGIR
+    GGIR (>= 1.5-12)
 Suggests: 
     knitr,
     rmarkdown,
@@ -23,6 +23,7 @@ Suggests:
 Encoding: UTF-8
 LazyData: true
 ByteCompile: true
+Remotes: wadpac/GGIR
 VignetteBuilder: knitr
 BugReports: https://github.com/muschellij2/biobankr/issues
 RoxygenNote: 6.0.1.9000
