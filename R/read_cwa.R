@@ -11,7 +11,15 @@
 #'
 #' @importFrom dplyr as_data_frame
 #' @importFrom GGIR g.cwaread
+#' @importFrom R.utils isCompressedFile decompressFile
 read_cwa = function(file, end = Inf, convert_time = TRUE, verbose = TRUE) {
+  if (isCompressedFile(file)) {
+    file = decompressFile(
+      filename = file, temporary = TRUE,
+      overwrite = TRUE, remove = FALSE)
+  }
+  ext = tools::file_ext(file)
+  ext = tolower(ext)
   res = GGIR::g.cwaread(
     fileName = file, start = 0, end = end, progressBar = verbose)
   res$data = dplyr::as_data_frame(res$data)
@@ -22,7 +30,7 @@ read_cwa = function(file, end = Inf, convert_time = TRUE, verbose = TRUE) {
     if (is.null(dsecs)) {
       warning(
         paste0("digit.secs option not defined, try options(digits.secs = 2)")
-        )
+      )
     }
     time1 = res$data$time[1]
     if (res$header$start != time1) {

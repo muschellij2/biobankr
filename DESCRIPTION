@@ -14,7 +14,8 @@ Imports:
     lubridate,
     dplyr,
     tidyr,
-    GGIR (>= 1.5-12)
+    GGIR (>= 1.5-12),
+    R.utils
 Suggests: 
     knitr,
     rmarkdown,

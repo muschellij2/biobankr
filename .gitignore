@@ -3,3 +3,4 @@
 .Rproj.user
 inst/doc
 test.csv
+.httr-oauth
