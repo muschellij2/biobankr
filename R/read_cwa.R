@@ -16,10 +16,16 @@
 read_cwa = function(file, end = Inf, convert_time = TRUE, verbose = TRUE) {
   ext = tools::file_ext(file)
   if (isCompressedFile(file, ext = ext, fileClass = "")) {
+    FUN = switch(ext,
+                 gz = gzfile,
+                 xz = xzfile,
+                 bz2 = bzfile,
+                 bz = bzfile)
     file = decompressFile(
       filename = file,
       temporary = TRUE,
       ext = ext,
+      FUN = FUN,
       overwrite = TRUE,
       remove = FALSE)
   }
