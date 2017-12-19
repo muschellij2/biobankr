@@ -15,7 +15,7 @@
 #' @importFrom tools file_ext
 read_cwa = function(file, end = Inf, convert_time = TRUE, verbose = TRUE) {
   ext = tools::file_ext(file)
-  if (isCompressedFile(file, ext = ext)) {
+  if (isCompressedFile(file, ext = ext, fileClass = "")) {
     file = decompressFile(
       filename = file,
       temporary = TRUE,
