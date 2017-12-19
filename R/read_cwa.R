@@ -12,11 +12,16 @@
 #' @importFrom dplyr as_data_frame
 #' @importFrom GGIR g.cwaread
 #' @importFrom R.utils isCompressedFile decompressFile
+#' @importFrom tools file_ext
 read_cwa = function(file, end = Inf, convert_time = TRUE, verbose = TRUE) {
-  if (isCompressedFile(file)) {
+  ext = tools::file_ext(file)
+  if (isCompressedFile(file, ext = ext)) {
     file = decompressFile(
-      filename = file, temporary = TRUE,
-      overwrite = TRUE, remove = FALSE)
+      filename = file,
+      temporary = TRUE,
+      ext = ext,
+      overwrite = TRUE,
+      remove = FALSE)
   }
   ext = tools::file_ext(file)
   ext = tolower(ext)

@@ -15,7 +15,8 @@ Imports:
     dplyr,
     tidyr,
     GGIR (>= 1.5-12),
-    R.utils
+    R.utils,
+    tools
 Suggests: 
     knitr,
     rmarkdown,
