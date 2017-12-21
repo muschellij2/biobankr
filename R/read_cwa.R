@@ -11,11 +11,14 @@
 #'
 #' @importFrom dplyr as_data_frame
 #' @importFrom GGIR g.cwaread
-#' @importFrom R.utils isCompressedFile decompressFile
+#' @importFrom R.utils isGzipped isBzipped decompressFile isCompressedFile
 #' @importFrom tools file_ext
 read_cwa = function(file, end = Inf, convert_time = TRUE, verbose = TRUE) {
   ext = tools::file_ext(file)
-  if (isCompressedFile(file, ext = ext, fileClass = "")) {
+  isXzipped = function(...) {
+    R.utils::isCompressedFile(..., ext = "xz", fileClass = "xzfile")
+  }
+  if (isGzipped(file) || isBzipped(file) || isXzipped(file)) {
     FUN = switch(ext,
                  gz = gzfile,
                  xz = xzfile,
