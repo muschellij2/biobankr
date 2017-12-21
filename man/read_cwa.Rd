@@ -4,7 +4,7 @@
 \alias{read_cwa}
 \title{Read CWA from Axtivity}
 \usage{
-read_cwa(file, end = Inf, convert_time = TRUE, verbose = TRUE)
+read_cwa(file, end = Inf, convert_time = TRUE, verbose = TRUE, tz = "")
 }
 \arguments{
 \item{file}{filename of cwa file}
@@ -14,6 +14,11 @@ read_cwa(file, end = Inf, convert_time = TRUE, verbose = TRUE)
 \item{convert_time}{Should times be converted to \code{POSIXct}?}
 
 \item{verbose}{print diagnostic messages}
+
+\item{tz}{A time zone specification to be used for the conversion,
+if one is required.  System-specific (see \link{timezones}),
+but "" is the current time zone,
+and "GMT" is UTC (Universal Time, Coordinated).}
 }
 \value{
 A list with header information and a tbl
