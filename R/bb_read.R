@@ -80,13 +80,14 @@ bb_read = function(file,
   too_many_days = FALSE
   if (n_days > max_days) {
     msg = paste0("Over ", max_days, " days worth of data!",
-           "Device was probably left on!")
+           " Device was probably left on!")
     warning(msg)
     too_many_days = TRUE
   }
+  attr(df, "too_many_days") = too_many_days
+
 
   attr(df, "sampling_rate") = srate
-  attr(df, "too_many_days") = too_many_days
 
   return(df)
 }
