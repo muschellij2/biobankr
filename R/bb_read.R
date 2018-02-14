@@ -71,6 +71,7 @@ bb_read = function(file,
   df = df %>%
     mutate(imputed = as.logical(imputed))
 
+  attr(df, "sampling_rate") = srate
   return(df)
 }
 
