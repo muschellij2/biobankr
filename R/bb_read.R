@@ -4,6 +4,9 @@
 #' @param force_numeric Should the acceleration be
 #' set to numeric even if read in as character
 #' (odd but happens)
+#' @param max_days Maximum number of days the data should have.  Has no effect
+#' on reading in the data, but prints a warning if there are more than the
+#' maximum.
 #'
 #' @return A \code{tibble}
 #' @export
@@ -13,7 +16,8 @@
 #' file = system.file("test2.csv", package = "biobankr")
 #'   df = bb_read(file)
 bb_read = function(file,
-                   force_numeric = TRUE) {
+                   force_numeric = TRUE,
+                   max_days = 7) {
 
   imputed = NULL
   rm(list = "imputed");
@@ -71,7 +75,19 @@ bb_read = function(file,
   df = df %>%
     mutate(imputed = as.logical(imputed))
 
+  nr = nrow(df)
+  n_days = nr * srate / (60 * 60 * 24)
+  too_many_days = FALSE
+  if (n_days > max_days) {
+    msg = paste0("Over ", max_days, " days worth of data!",
+           "Device was probably left on!")
+    warning(msg)
+    too_many_days = TRUE
+  }
+
   attr(df, "sampling_rate") = srate
+  attr(df, "too_many_days") = too_many_days
+
   return(df)
 }
 

@@ -4,7 +4,7 @@
 \alias{bb_read}
 \title{Read Biobank Acceleration File}
 \usage{
-bb_read(file, force_numeric = TRUE)
+bb_read(file, force_numeric = TRUE, max_days = 7)
 }
 \arguments{
 \item{file}{path to filename}
@@ -12,6 +12,10 @@ bb_read(file, force_numeric = TRUE)
 \item{force_numeric}{Should the acceleration be
 set to numeric even if read in as character
 (odd but happens)}
+
+\item{max_days}{Maximum number of days the data should have.  Has no effect
+on reading in the data, but prints a warning if there are more than the
+maximum.}
 }
 \value{
 A \code{tibble}
