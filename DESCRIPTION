@@ -16,6 +16,8 @@ Imports:
     tidyr,
     GGIR (>= 1.5-12),
     R.utils,
+    rvest,
+    xml2,
     tools
 Suggests: 
     knitr,
