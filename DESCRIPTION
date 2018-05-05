@@ -1,6 +1,6 @@
 Type: Package
 Package: biobankr
-Version: 0.6.2.9002
+Version: 0.6.3
 Title: UK Biobank Accelerometer Analysis
 Description: Tools for analysis and ploting data from the UK Biobank, 
     specifically accelerometer data.
