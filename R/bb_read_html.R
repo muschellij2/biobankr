@@ -3,7 +3,7 @@
 #'
 #' @param file Name of HTML file
 #'
-#' @return A `data.frame` of the main table
+#' @return A list of `data.frames` of the tables
 #' @export
 #' @importFrom tidyr separate
 #' @importFrom xml2 read_html
@@ -13,7 +13,7 @@ bb_read_html = function(file) {
   varname = NULL
   rm(list = "varname")
 
-  xx = readLines(file)
+  xx = readLines(file, warn = FALSE)
   bad_string = "NEWLINE"
   xx = gsub("<br>", bad_string, xx)
   tfile = tempfile(fileext = ".html")
@@ -22,9 +22,31 @@ bb_read_html = function(file) {
 
   tabs = html_nodes(doc,
                     xpath = "//table")
-  tab = tabs[[2]]
 
-  xdf = html_table(tab, trim = FALSE)
+  all_tabs = lapply(tabs, function(tab) {
+    xdf = html_table(tab, trim = FALSE)
+  })
+
+  summaries = sapply(tabs, html_attr, "summary")
+  names(all_tabs) = summaries
+  the_tab = sapply(all_tabs, function(x) {
+    cn = colnames(x)
+    any(grepl("Column", cn) )
+  })
+  if (sum(the_tab) != 1) {
+    warning("Main table not found")
+    return(all_tabs)
+  }
+  main_tab = is.na(summaries) & the_tab
+  names(all_tabs)[the_tab] = "main_table"
+  is_date_extracted = is.na(names(all_tabs))
+  if (any(is_date_extracted)) {
+    meta_col = sapply(all_tabs[is_date_extracted], function(x) {
+      any(grepl("Date Extracted", x) )
+    })
+    names(all_tabs)[is_date_extracted][meta_col] = "meta_information"
+  }
+  xdf = all_tabs$main_table
 
   ##############################
   # Make the coding column
@@ -61,5 +83,8 @@ bb_read_html = function(file) {
 
   df$varname = paste0("f.", df$varname)
 
-  return(df)
+  all_tabs$main_table = df
+
+
+  return(all_tabs)
 }

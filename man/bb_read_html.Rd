@@ -10,7 +10,7 @@ bb_read_html(file)
 \item{file}{Name of HTML file}
 }
 \value{
-A `data.frame` of the main table
+A list of `data.frames` of the tables
 }
 \description{
 Read Biobank Document HTML
