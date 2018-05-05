@@ -2,9 +2,12 @@
 % Please edit documentation in R/bb_read_html.R
 \name{bb_read_html}
 \alias{bb_read_html}
+\alias{bb_read_main_table}
 \title{Read Biobank Document HTML}
 \usage{
 bb_read_html(file)
+
+bb_read_main_table(file)
 }
 \arguments{
 \item{file}{Name of HTML file}

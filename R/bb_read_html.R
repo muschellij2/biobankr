@@ -7,7 +7,7 @@
 #' @export
 #' @importFrom tidyr separate
 #' @importFrom xml2 read_html
-#' @importFrom rvest html_nodes html_table
+#' @importFrom rvest html_nodes html_table html_attr
 bb_read_html = function(file) {
 
   varname = NULL
@@ -87,4 +87,13 @@ bb_read_html = function(file) {
 
 
   return(all_tabs)
+}
+
+
+#' @export
+#' @rdname bb_read_html
+bb_read_main_table = function(file) {
+  tab = bb_read_html(file)
+  return(tab$main_table)
+
 }
