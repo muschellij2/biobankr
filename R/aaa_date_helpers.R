@@ -45,19 +45,21 @@ min_to_hr_min = function(x) {
 
 #' @export
 #' @rdname time_helpers
-min_to_time  = function(x, day = NULL) {
+#' @param tz timezone passed to \code{lubridate} functions
+min_to_time  = function(x, day = NULL, tz = "UTC") {
   x = min_to_hr_min(x)
 
   x = sprintf("%02i:%02i", x[, "hour"], x[, "min"])
   fmt = "%H:%M"
   if (!is.null(day)) {
-    day = lubridate::ymd(day)
+    day = lubridate::ymd(day, tz = tz)
     x = sprintf("%s %s", day, x)
     fmt = paste0("%Y-%m-%d", fmt)
   }
   x = as.POSIXct(
     x,
-    format = fmt)
+    format = fmt,
+    tz = tz)
   return(x)
 }
 

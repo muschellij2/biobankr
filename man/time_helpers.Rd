@@ -12,7 +12,7 @@ time_to_min(x)
 
 min_to_hr_min(x)
 
-min_to_time(x, day = NULL)
+min_to_time(x, day = NULL, tz = "UTC")
 
 floor_1day(x)
 
@@ -23,6 +23,8 @@ yyyymmdd(x)
 only seconds are kept, not milliseconds}
 
 \item{day}{A date given in YMD format}
+
+\item{tz}{timezone passed to \code{lubridate} functions}
 }
 \value{
 A Date or numeric object

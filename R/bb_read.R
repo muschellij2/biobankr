@@ -7,6 +7,7 @@
 #' @param max_days Maximum number of days the data should have.  Has no effect
 #' on reading in the data, but prints a warning if there are more than the
 #' maximum.
+#' @param tz timezone passed to \code{lubridate} functions
 #'
 #' @return A \code{tibble}
 #' @export
@@ -17,6 +18,7 @@
 #'   df = bb_read(file)
 bb_read = function(file,
                    force_numeric = TRUE,
+                   tz = "UTC",
                    max_days = 7) {
 
   imputed = NULL
@@ -45,7 +47,8 @@ bb_read = function(file,
   # date range
   #############################
   date_range = extract_date(info)
-  date_range = lubridate::ymd_hms(date_range)
+  date_range = lubridate::ymd_hms(date_range,
+                                  tz = tz)
   if (any(is.na(date_range))) {
     stop("Sampling rate returning NA")
   }
