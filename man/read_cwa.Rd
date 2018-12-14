@@ -5,7 +5,7 @@
 \title{Read CWA from Axtivity}
 \usage{
 read_cwa(file, end = Inf, convert_time = TRUE, verbose = TRUE,
-  tz = "")
+  tz = "", ...)
 }
 \arguments{
 \item{file}{filename of cwa file}
@@ -20,6 +20,9 @@ read_cwa(file, end = Inf, convert_time = TRUE, verbose = TRUE,
 if one is required.  System-specific (see \link{timezones}),
 but "" is the current time zone,
 and "GMT" is UTC (Universal Time, Coordinated).}
+
+\item{...}{additional arguments to pass to \code{\link{g.cwaread}},
+noting some are already loaded in different arguments}
 }
 \value{
 A list with header information and a tbl

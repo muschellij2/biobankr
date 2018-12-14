@@ -9,6 +9,8 @@
 #' but "" is the current time zone,
 #' and "GMT" is UTC (Universal Time, Coordinated).
 #' @param verbose print diagnostic messages
+#' @param ... additional arguments to pass to \code{\link{g.cwaread}},
+#' noting some are already loaded in different arguments
 #'
 #' @return A list with header information and a tbl
 #' @export
@@ -18,7 +20,7 @@
 #' @importFrom R.utils isGzipped isBzipped decompressFile isCompressedFile
 #' @importFrom tools file_ext
 read_cwa = function(file, end = Inf, convert_time = TRUE, verbose = TRUE,
-                    tz = "") {
+                    tz = "", ...) {
   ext = tools::file_ext(file)
   isXzipped = function(...) {
     R.utils::isCompressedFile(..., ext = "xz", fileClass = "xzfile")
@@ -40,7 +42,8 @@ read_cwa = function(file, end = Inf, convert_time = TRUE, verbose = TRUE,
   ext = tools::file_ext(file)
   ext = tolower(ext)
   res = GGIR::g.cwaread(
-    fileName = file, start = 0, end = end, progressBar = verbose)
+    fileName = file, start = 0, end = end, progressBar = verbose,
+    ...)
   res$data = dplyr::as_data_frame(res$data)
   if (convert_time) {
     res$data$time = as.POSIXct(res$data$time, origin = "1970-01-01",
