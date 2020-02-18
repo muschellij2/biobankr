@@ -7,7 +7,7 @@ fname = unzip(zipfile, files = "accsamp.cwa",
               exdir = tempdir())
 
 
-testthat::test_that("Header information", {
+testthat::test_that("Reading in the file", {
 
   testthat::expect_warning({
     res = read_cwa(file = fname, end = 1000, configtz = "")
@@ -20,10 +20,10 @@ testthat::test_that("Header information", {
 
   testthat::expect_equal(names(res), c("header", "data"))
 
-  testthat::expect_equal({
-    colnames(res$data)
+  testthat::expect_equal(
+    colnames(res$data),
     c("time", "x", "y", "z", "temp", "battery", "light")
-  })
+  )
 
 
 
