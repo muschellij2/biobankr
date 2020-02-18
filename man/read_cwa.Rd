@@ -4,8 +4,7 @@
 \alias{read_cwa}
 \title{Read CWA from Axtivity}
 \usage{
-read_cwa(file, end = Inf, convert_time = TRUE, verbose = TRUE,
-  tz = "", ...)
+read_cwa(file, end = Inf, convert_time = TRUE, verbose = TRUE, tz = "", ...)
 }
 \arguments{
 \item{file}{filename of cwa file}

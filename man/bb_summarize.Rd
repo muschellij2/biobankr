@@ -6,11 +6,23 @@
 \alias{bb_summarize_minute}
 \title{Summarize Biobank Acceleration File}
 \usage{
-bb_summarize(df, unit = "1 minute", summarize_func = "mean",
-  na.rm = TRUE, keep_imputed = TRUE, ...)
+bb_summarize(
+  df,
+  unit = "1 minute",
+  summarize_func = "mean",
+  na.rm = TRUE,
+  keep_imputed = TRUE,
+  ...
+)
 
-bb_summarise(df, unit = "1 minute", summarize_func = "mean",
-  na.rm = TRUE, keep_imputed = TRUE, ...)
+bb_summarise(
+  df,
+  unit = "1 minute",
+  summarize_func = "mean",
+  na.rm = TRUE,
+  keep_imputed = TRUE,
+  ...
+)
 
 bb_summarize_minute(..., unit = "1 minute")
 }

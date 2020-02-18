@@ -31,4 +31,4 @@ ByteCompile: true
 Remotes: wadpac/GGIR
 VignetteBuilder: knitr
 BugReports: https://github.com/muschellij2/biobankr/issues
-RoxygenNote: 6.1.0
+RoxygenNote: 7.0.2

@@ -5,11 +5,23 @@
 \alias{bb_1440_count}
 \title{Summarize Biobank Acceleration File into 1440 format}
 \usage{
-bb_1440(df, summarize_over_day = FALSE, summarize_day_func = "mean",
-  na.rm = TRUE, keep_imputed = TRUE, long = FALSE, ...)
+bb_1440(
+  df,
+  summarize_over_day = FALSE,
+  summarize_day_func = "mean",
+  na.rm = TRUE,
+  keep_imputed = TRUE,
+  long = FALSE,
+  ...
+)
 
-bb_1440_count(df, summarize_over_day = FALSE, keep_imputed = TRUE,
-  long = FALSE, ...)
+bb_1440_count(
+  df,
+  summarize_over_day = FALSE,
+  keep_imputed = TRUE,
+  long = FALSE,
+  ...
+)
 }
 \arguments{
 \item{df}{A \code{data.frame} or \code{tbl} from \code{\link{bb_read}}}
