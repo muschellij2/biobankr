@@ -41,9 +41,13 @@ read_cwa = function(file, end = Inf, convert_time = TRUE, verbose = TRUE,
   }
   ext = tools::file_ext(file)
   ext = tolower(ext)
-  res = GGIR::g.cwaread(
+  args = list(
     fileName = file, start = 0, end = end, progressBar = verbose,
     ...)
+  if (is.null(args$desiredtz)) {
+    args$desiredtz = tz
+  }
+  res = do.call(GGIR::g.cwaread, args = args)
   res$data = dplyr::as_data_frame(res$data)
   if (convert_time) {
     res$data$time = as.POSIXct(res$data$time, origin = "1970-01-01",
