@@ -14,6 +14,7 @@ knitr::opts_chunk$set(
   fig.path = "man/figures/README-"
 )
 ```
+
 # biobankr Package: 
 The goal of `biobankr` is to provide tools for analysis and ploting data from the UK Biobank, specifically accelerometer data.
 

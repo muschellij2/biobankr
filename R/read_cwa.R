@@ -15,7 +15,7 @@
 #' @return A list with header information and a tbl
 #' @export
 #'
-#' @importFrom dplyr as_data_frame
+#' @importFrom dplyr as_tibble
 #' @importFrom GGIR g.cwaread
 #' @importFrom R.utils isGzipped isBzipped decompressFile isCompressedFile
 #' @importFrom tools file_ext
@@ -48,7 +48,7 @@ read_cwa = function(file, end = Inf, convert_time = TRUE, verbose = TRUE,
     args$desiredtz = tz
   }
   res = do.call(GGIR::g.cwaread, args = args)
-  res$data = dplyr::as_data_frame(res$data)
+  res$data = dplyr::as_tibble(res$data)
   if (convert_time) {
     res$data$time = as.POSIXct(res$data$time, origin = "1970-01-01",
                                tz = tz)
